@@ -1,0 +1,62 @@
+{
+  "measures": [
+    "Avg Sales",
+    "Avg Sales per Order",
+    "Distinct Product",
+    "Order Count",
+    "Product Sales Rank",
+    "Sales Anomaly Count",
+    "Sales PY",
+    "Sales YTD",
+    "Sales YoY %",
+    "Total Quantity",
+    "Total Sales"
+  ],
+  "pages": [
+    {
+      "display_name": "Page 2",
+      "id": "page-2",
+      "visual_count": 1
+    },
+    {
+      "display_name": "Summary",
+      "id": "summary-page",
+      "visual_count": 17
+    }
+  ],
+  "tables": [
+    {
+      "columns": [
+        "Date",
+        "Year",
+        "YearMonthNum",
+        "YearMonth",
+        "Quarter",
+        "QuarterNum",
+        "Month",
+        "MonthNum",
+        "MonthShort",
+        "Week",
+        "WeekNum",
+        "Day",
+        "DayOfWeek",
+        "DayOfWeekShort",
+        "IsWeekend",
+        "IsCurrentYear",
+        "IsCurrentMonth"
+      ],
+      "name": "Date"
+    },
+    {
+      "columns": [
+        "OrderDate",
+        "Region",
+        "Product",
+        "Sales",
+        "Quantity"
+      ],
+      "name": "simple_single_table"
+    }
+  ],
+  "total_visuals": 18
+}

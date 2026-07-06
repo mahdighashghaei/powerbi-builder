@@ -1,0 +1,11 @@
+{# PBIR 2.0.0 page.json template.
+   Renders: definition/pages/<page-id>/page.json
+   Variables: page (dict with id, displayName, width, height)
+#}{
+	"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+	"name": "{{ page.id }}",
+	"displayName": "{{ page.displayName }}",
+	"displayOption": "FitToPage",
+	"height": {{ page.height | default(720) }},
+	"width": {{ page.width | default(1280) }}
+}

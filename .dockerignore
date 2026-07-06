@@ -1,0 +1,33 @@
+# Keep the image lean — nothing here is needed at runtime.
+.git
+.gitignore
+.gitattributes
+.env
+.env.*
+!.env.example
+output/
+output_*/
+logs/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.python-version
+.pytest_cache/
+.coverage
+htmlcov/
+.adk/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.log
+# Demo/example data is large and not needed in the image
+SampleData.csv

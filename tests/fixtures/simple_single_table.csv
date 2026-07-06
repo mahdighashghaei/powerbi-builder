@@ -1,0 +1,11 @@
+OrderDate,Region,Product,Sales,Quantity
+2024-01-05,North,Widget,250.50,10
+2024-01-12,South,Gadget,99.99,5
+2024-02-03,North,Widget,150.25,8
+2024-02-18,East,Sprocket,300.00,12
+2024-03-10,West,Widget,175.00,7
+2024-03-22,South,Gadget,210.40,9
+2024-04-05,North,Sprocket,420.75,15
+2024-04-19,East,Widget,88.20,3
+2024-05-02,West,Gadget,340.10,11
+2024-05-15,South,Sprocket,199.50,6

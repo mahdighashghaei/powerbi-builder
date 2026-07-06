@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "powerbi-builder": {
+      "description": "Power BI Project Builder — create/edit PBIP projects from CSV/Excel/JSON, deploy to Fabric",
+      "command": "python",
+      "args": [
+        "-m",
+        "mcp_server.server",
+        "./output"
+      ],
+      "env": {
+        "LOG_FILE": "./logs/powerbi_builder.log",
+        "LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}

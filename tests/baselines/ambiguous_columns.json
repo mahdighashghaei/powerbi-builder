@@ -1,0 +1,51 @@
+{
+  "measures": [
+    "Max v1",
+    "Min v1",
+    "Order Count",
+    "Records All"
+  ],
+  "pages": [
+    {
+      "display_name": "Summary",
+      "id": "summary-page",
+      "visual_count": 6
+    }
+  ],
+  "tables": [
+    {
+      "columns": [
+        "c1",
+        "c2",
+        "c3",
+        "v1",
+        "v2",
+        "t1"
+      ],
+      "name": "ambiguous_columns"
+    },
+    {
+      "columns": [
+        "Date",
+        "Year",
+        "YearMonthNum",
+        "YearMonth",
+        "Quarter",
+        "QuarterNum",
+        "Month",
+        "MonthNum",
+        "MonthShort",
+        "Week",
+        "WeekNum",
+        "Day",
+        "DayOfWeek",
+        "DayOfWeekShort",
+        "IsWeekend",
+        "IsCurrentYear",
+        "IsCurrentMonth"
+      ],
+      "name": "Date"
+    }
+  ],
+  "total_visuals": 6
+}

@@ -1,0 +1,42 @@
+# Lightweight tooling config for powerbi-builder.
+# Not a packaging manifest — the project runs from source.
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = [
+    "output",
+    "output_phase7",
+    "logs",
+    "examples",
+]
+
+[tool.ruff.lint]
+# E/W = pycodestyle, F = pyflakes (unused imports/vars, undefined names),
+# I = isort, UP = pyupgrade. Kept conservative so adopting it is incremental.
+select = ["E", "W", "F", "I", "UP"]
+ignore = [
+    "E402",  # module-level imports after sys.path manipulation (ADK tools)
+    "E501",  # line length handled by formatter; warnings-only here
+    "UP035", # typing.List/etc still used broadly; migrate gradually
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["F401"]  # test fixtures may import for side effects
+"build_*_demo.py" = ["F401"]
+
+# ---------------------------------------------------------------------------
+# pytest configuration
+# ---------------------------------------------------------------------------
+# The project's tests are stdlib ``unittest`` suites that pytest auto-collects.
+# This section also wires the Gherkin/BDD ``.feature`` scenarios (via
+# pytest-bdd) into the same ``pytest`` invocation, and registers the markers
+# pytest-bdd uses so ``--strict-markers`` stays clean. The BDD layer is
+# optional: tests/conftest.py imports pytest_bdd lazily and skips the features
+# if it is not installed.
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers"
+markers = [
+    "bdd: Gherkin/BDD scenario driven by pytest-bdd",
+]

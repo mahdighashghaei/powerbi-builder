@@ -1,0 +1,39 @@
+# Secrets - NEVER commit
+.env
+.env.*
+!.env.example
+
+# Output artefacts (regenerated each run)
+output/
+output_*/
+logs/
+*.pbip/
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.python-version
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ADK runtime
+.adk/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp

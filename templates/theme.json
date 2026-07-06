@@ -1,0 +1,53 @@
+{
+  "name": "PowerBI Builder Default",
+  "dataColors": [
+    "#118DFF",
+    "#12239E",
+    "#E66C37",
+    "#6B007B",
+    "#E044A7",
+    "#7FEC00",
+    "#9B6E00",
+    "#3D5F00"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#252423",
+  "tableAccent": "#118DFF",
+  "good": "#1AAB40",
+  "neutral": "#D9B300",
+  "bad": "#D60057",
+  "maximum": "#118DFF",
+  "center": "#E0E0E0",
+  "minimum": "#DEEFFF",
+  "null": "#FF7F0E",
+  "textClasses": {
+    "title": {
+      "fontSize": 16,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#252423"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#252423"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#252423"
+    },
+    "callout": {
+      "fontSize": 28,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#252423"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E0E0E0" } } }]
+      }
+    }
+  }
+}

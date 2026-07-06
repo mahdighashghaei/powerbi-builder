@@ -1,0 +1,5 @@
+OrderDate,Region,Product,Quantity,Amount
+2024-01-05,North,Widget,10,250.50
+2024-01-07,South,Gadget,5,99.99
+2024-02-10,East,Widget,8,200.00
+2024-02-15,West,Gadget,12,239.88

@@ -1,0 +1,44 @@
+# docker-compose for powerbi-builder.
+#
+# Brings up the ADK server (with /health) on port 8000, with a persistent
+# volume for generated PBIP projects and a SQLite session store so chats
+# survive container restarts.
+#
+# Usage:
+#   1. Copy .env.example to .env and fill in GOOGLE_API_KEY
+#   2. docker compose up --build
+#   3. curl http://localhost:8000/health
+#   4. Open the ADK web UI / use the API at http://localhost:8000
+
+services:
+  powerbi-builder:
+    build: .
+    image: powerbi-builder:latest
+    container_name: powerbi-builder
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Persistence: SQLite session DB on the shared volume.
+      POWERBI_SESSION_DB_URL: "sqlite+aiosqlite:////app/data/adk_sessions.db"
+      POWERBI_OUTPUT_ROOT: "/app/output"
+    volumes:
+      # Generated PBIP projects survive container recreation.
+      - pbip_output:/app/output
+      # Session DB + uploads persist across restarts.
+      - pbip_data:/app/data
+      # Logs (optional; also viewable via `docker compose logs`).
+      - pbip_logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health',timeout=5).status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  pbip_output:
+  pbip_data:
+  pbip_logs:

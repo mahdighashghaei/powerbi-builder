@@ -1,0 +1,77 @@
+# PowerBI Builder Multi-Agent System - dependencies
+# Core MCP server (Model Context Protocol)
+mcp>=1.2.0
+
+# Schema inference / CSV reading
+pandas>=2.2.0
+
+# Templating for TMDL + PBIR generation
+Jinja2>=3.1.3
+
+# Secrets / env loading (NEVER hardcode API keys)
+python-dotenv>=1.0.1
+
+# Schema / config validation
+pydantic>=2.6.0
+
+# (Optional) Gherkin/BDD scenarios — drives the tests/features/*.feature files
+# via pytest-bdd so a single `pytest tests/` run covers both the stdlib
+# unittest suites and the BDD scenarios. Without it the features are skipped
+# (tests/conftest.py imports pytest_bdd lazily), so the project still installs
+# and tests fine without it.
+pytest-bdd>=8.0.0
+
+# (Optional) OpenTelemetry trajectory evaluation — records each agent + tool
+# execution as an OTel span so the step-by-step path to an answer can be
+# replayed/evaluated. Off by default (POWERBI_OTEL_ENABLED=0). Without it
+# telemetry is a no-op (fail-safe) and the project runs identically.
+opentelemetry-api>=1.20.0
+opentelemetry-sdk>=1.20.0
+
+# Google Agent Development Kit (ADK) -- required by the `adk/` layer
+# (`python chat.py` / `adk web`). Without it `import adk` raises ModuleNotFoundError.
+# The [db] extra pulls SQLAlchemy so DatabaseSessionService (SQLite) works for
+# persistent sessions across restarts. Without it the REPL falls back to in-memory.
+#
+# >=2.3.0 is a hard requirement, not just "latest and greatest": adk/agent.py
+# passes on_tool_error_callback/on_model_error_callback to Agent(...), which
+# older ADK releases (confirmed: 1.14.1) reject at startup with a pydantic
+# "Extra inputs are not permitted" ValidationError -- the agent never even
+# imports. A permissive ">=1.0.0" let a fresh `pip install` silently resolve
+# to an incompatible older release (some other dependency's transitive
+# constraint backed pip's resolver down from PyPI's actual latest); this
+# only surfaced as a Docker container crashing on startup, since a
+# long-lived local dev venv had already been on 2.3.0 from before.
+#
+# Deliberately WITHOUT the [extensions] extra: its only relevant piece is
+# litellm's ADK integration (google.adk.models.lite_llm.LiteLlm, used for
+# non-Gemini providers -- see utils/model_config.py), but that module's own
+# imports are just `litellm` (already a separate dependency below) plus
+# stdlib/pydantic -- confirmed by reading lite_llm.py's import list directly.
+# [extensions] itself bundles crewai, langgraph, llama-index, kubernetes,
+# docker, google-cloud-firestore and more -- none used anywhere in this
+# project -- and added ~1GB+ to the Docker image for zero functional benefit.
+google-adk[db]>=2.3.0
+
+# Async SQLite driver for DatabaseSessionService persistence
+# (used when POWERBI_SESSION_DB_URL=sqlite+aiosqlite:///...). Optional but
+# recommended; without it the REPL falls back to InMemorySessionService.
+aiosqlite>=0.20.0
+
+# ASGI server + health endpoint (adk/server.py). uvicorn serves the FastAPI
+# app with GET /health for liveness probes; fastapi pulls in starlette/httpx.
+uvicorn>=0.30.0
+fastapi>=0.110.0
+
+# (Optional) LLM client for richer DAX/report generation.
+# The system works fully offline with deterministic rules, but if an
+# API key is provided via env var, agents will enhance their output.
+# google-generativeai and openai are intentionally NOT pinned hard so
+# the project still installs without them.
+
+# Provider-agnostic LLM completion for the pipeline layer (utils/model_config.py).
+# Lazily imported (same pattern as google-generativeai above) -- without it,
+# the LLM-enhancement paths just no-op back to the deterministic fallback.
+# Enables Anthropic/OpenAI (and any future provider) via one shared interface
+# instead of each agent hardcoding a Google genai.Client() call.
+litellm>=1.0.0

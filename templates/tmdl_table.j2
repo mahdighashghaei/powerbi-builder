@@ -1,0 +1,35 @@
+{# TMDL table template.
+   Renders a single table definition file: definition/tables/<Table>.tmdl
+   Variables: table (dict with name, lineageTag, columns[], measures[])
+   TMDL rules:
+     - measure names use single quotes (NOT DAX square brackets)
+     - formatString has no outer quotes around the value
+     - all objects (columns, measures) are tab-indented inside the table block
+     - table-level annotations (PBI_ResultType) are at 1-tab inside table block
+   TMDL is indentation-sensitive; do NOT change the leading whitespace.
+#}table {{ table.name }}
+
+	lineageTag: {{ table.lineageTag }}
+{%- for col in table.columns %}
+
+	column {{ col.name | q }}
+		dataType: {{ col.dataType }}
+		lineageTag: {{ col.lineageTag }}
+		summarizeBy: {{ col.summarizeBy | default("none") }}
+{%- if col.sourceColumn %}
+		sourceColumn: {{ col.sourceColumn | esc }}
+{%- endif %}
+{%- endfor %}
+{%- for m in table.measures | default([]) %}
+
+	measure {{ m.name | q }} = {{ m.expression }}
+{%- if m.formatString %}
+		formatString: {{ m.formatString }}
+{%- endif %}
+{%- if m.displayFolder %}
+		displayFolder: {{ m.displayFolder }}
+{%- endif %}
+{# description is NOT a valid TMDL measure property in Power BI Desktop -- omitted #}
+{%- endfor %}
+
+	annotation PBI_ResultType = Table
